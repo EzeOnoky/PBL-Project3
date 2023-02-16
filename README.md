@@ -336,3 +336,231 @@ ubuntu@ip-172-31-51-131:~/Todo/routes$
 
 ![PBL3_Picture2](https://user-images.githubusercontent.com/122687798/219301120-7c74adb6-144a-4567-a2c1-6a910670b2d7.JPG)
 
+## MODELS
+
+Now comes the interesting part, since the app is going to make use of Mongodb which is a NoSQL database, we need to create a model. A model is at the heart of JavaScript based applications, and it is what makes it interactive. We will also use models to define the database schema . This is important so that we will be able to define the fields stored in each Mongodb document.
+
+In essence, the Schema is a blueprint of how the database will be constructed, including other data fields that may not be required to be stored in the database. These are known as virtual properties.To create a Schema and a model, install mongoose which is a Node.js package that makes working with mongodb easier
+
+ubuntu@ip-172-31-51-131:~/Todo$ npm install express
+
+added 57 packages, and audited 58 packages in 2s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ touch index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ npm install dotenv
+
+added 1 package, and audited 59 packages in 463ms
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+Server running on port 5000
+
+
+mkdir routes
+:qa
+cd
+
+sudo -i
+curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+:q
+q
+exit
+ubuntu@ip-172-31-51-131:~/Todo$ npm install express
+
+added 57 packages, and audited 58 packages in 2s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ touch index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ npm install dotenv
+
+added 1 package, and audited 59 packages in 463ms
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+Server running on port 5000ubuntu@ip-172-31-51-131:~/Todo$ npm install express
+
+added 57 packages, and audited 58 packages in 2s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ touch index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ npm install dotenv
+
+added 1 package, and audited 59 packages in 463ms
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+Server running on port 5000
+
+ubuntu@ip-172-31-51-131:~/Todo$ npm install express
+
+added 57 packages, and audited 58 packages in 2s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ touch index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ npm install dotenv
+
+added 1 package, and audited 59 packages in 463ms
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+
+ubuntu@ip-172-31-51-131:~/Todo$ npm install express
+
+added 57 packages, and audited 58 packages in 2s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ touch index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ npm install dotenv
+
+added 1 package, and audited 59 packages in 463ms
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+Server running on port 5000^C
+ubuntu@ip-172-31-51-131:~/Todo$ mkdir routes
+ubuntu@ip-172-31-51-131:~/Todo$ cd routes
+ubuntu@ip-172-31-51-131:~/Todo/routes$ touch api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ vim api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ ubuntu@ip-172-31-51-131:~/Todo/routes$
+ubuntu@ip-172-31-51-131:~/Todo/routes$ npm install mongoose
+
+added 102 packages, and audited 161 packages in 6s
+
+12 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo/routes$ cd
+ubuntu@ip-172-31-51-131:~$ cd Todo/
+ubuntu@ip-172-31-51-131:~/Todo$ npm install mongoose
+
+up to date, audited 161 packages in 836ms
+
+12 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ mkdir models
+ubuntu@ip-172-31-51-131:~/Todo$ cd models
+ubuntu@ip-172-31-51-131:~/Todo/models$ touch todo.js
+ubuntu@ip-172-31-51-131:~/Todo/models$ ls
+todo.js
+ubuntu@ip-172-31-51-131:~/Todo/models$ vim todo.js
+ubuntu@ip-172-31-51-131:~/Todo/models$ ubuntu@ip-172-31-51-131:~/Todo/models$
+ubuntu@ip-172-31-51-131:~/Todo/models$
+ubuntu@ip-172-31-51-131:~/Todo/models$ cat todo.js
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+//create schema for todo
+//const TodoSchema = new Schema({
+//action: {
+//type: String,
+//required: [true, 'The todo text field is required']
+//}
+//})
+//
+////create model for todo
+//const Todo = mongoose.model('todo', TodoSchema);
+//
+//module.exports = Todo;
+ubuntu@ip-172-31-51-131:~/Todo/models$ ls
+todo.js
+ubuntu@ip-172-31-51-131:~/Todo/models$ cd
+ubuntu@ip-172-31-51-131:~$ ls
+Todo
+ubuntu@ip-172-31-51-131:~$ cd Todo/
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  models  node_modules  package-lock.json  package.json  routes
+ubuntu@ip-172-31-51-131:~/Todo$ cd routes/
+ubuntu@ip-172-31-51-131:~/Todo/routes$ ls
+api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ cat api.js
+
+const express = require ('express');
+const router = express.Router();
+
+router.get('/todos', (req, res, next) => {
+
+});
+
+router.post('/todos', (req, res, next) => {
+
+});

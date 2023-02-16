@@ -13,3 +13,283 @@ Node.js: A JavaScript runtime environment. It is used to run JavaScript on a mac
 As shown on the illustration above, a user interacts with the ReactJS UI components at the application front-end residing in the browser. This frontend is served by the application backend residing in a server, through ExpressJS running on top of NodeJS.
 
 Any interaction that causes a data change request is sent to the NodeJS based Express server, which grabs data from the MongoDB database if required, and returns the data to the frontend of the application, which is then presented to the user.
+
+
+## STEP 1 – BACKEND CONFIGURATION
+
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$ sudo apt update
+Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease [107 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+Get:5 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
+Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
+Get:11 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [896 kB]
+Get:12 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [196 kB]
+Get:13 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [13.5 kB]
+Get:14 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [624 kB]
+Get:15 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [96.1 kB]
+Get:16 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [580 B]
+Get:17 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [811 kB]
+Get:18 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [147 kB]
+Get:19 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [15.5 kB]
+Get:20 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [9696 B]
+Get:21 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [3260 B]
+Get:22 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [456 B]
+Get:23 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [40.7 kB]
+Get:24 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [9800 B]
+Get:25 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [392 B]
+Get:26 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
+Get:27 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [19.5 kB]
+Get:28 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [13.8 kB]
+Get:29 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [392 B]
+Get:30 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
+Get:31 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [637 kB]
+Get:32 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [133 kB]
+Get:33 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [8388 B]
+Get:34 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [575 kB]
+Get:35 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [87.9 kB]
+Get:36 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [640 kB]
+Get:37 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [88.1 kB]
+Get:38 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [11.3 kB]
+Get:39 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [4960 B]
+Get:40 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [996 B]
+Get:41 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [240 B]
+Fetched 25.8 MB in 4s (5747 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+7 packages can be upgraded. Run 'apt list --upgradable' to see them.
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$ sudo apt upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following NEW packages will be installed:
+  linux-aws-headers-5.15.0-1030 linux-headers-5.15.0-1030-aws linux-image-5.15.0-1030-aws
+  linux-modules-5.15.0-1030-aws
+The following packages have been kept back:
+  ubuntu-advantage-tools
+The following packages will be upgraded:
+  git git-man less linux-aws linux-headers-aws linux-image-aws
+6 upgraded, 4 newly installed, 0 to remove and 1 not upgraded.
+6 standard LTS security updates
+Need to get 53.4 MB of archives.
+After this operation, 231 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 less amd64 590-1ubuntu0.22.04.1 [143 kB]
+Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 git-man all 1:2.34.1-1ubuntu1.8 [953 kB]
+Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 git amd64 1:2.34.1-1ubuntu1.8 [3141 kB]Get:4 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-modules-5.15.0-1030-aws amd64 5.15.0-1030.34 [22.5 MB]
+Get:5 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-image-5.15.0-1030-aws amd64 5.15.0-1030.34 [11.4 MB]
+Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-aws amd64 5.15.0.1030.28 [1716 B]Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-image-aws amd64 5.15.0.1030.28 [2458 B]
+Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-aws-headers-5.15.0-1030 all 5.15.0-1030.34 [12.4 MB]
+Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-headers-5.15.0-1030-aws amd64 5.15.0-1030.34 [2822 kB]
+Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-headers-aws amd64 5.15.0.1030.28 [2390 B]
+Fetched 53.4 MB in 2s (33.9 MB/s)
+(Reading database ... 63605 files and directories currently installed.)
+Preparing to unpack .../0-less_590-1ubuntu0.22.04.1_amd64.deb ...
+Unpacking less (590-1ubuntu0.22.04.1) over (590-1build1) ...
+Preparing to unpack .../1-git-man_1%3a2.34.1-1ubuntu1.8_all.deb ...
+Unpacking git-man (1:2.34.1-1ubuntu1.8) over (1:2.34.1-1ubuntu1.6) ...
+Preparing to unpack .../2-git_1%3a2.34.1-1ubuntu1.8_amd64.deb ...
+Unpacking git (1:2.34.1-1ubuntu1.8) over (1:2.34.1-1ubuntu1.6) ...
+Selecting previously unselected package linux-modules-5.15.0-1030-aws.
+Preparing to unpack .../3-linux-modules-5.15.0-1030-aws_5.15.0-1030.34_amd64.deb ...
+Unpacking linux-modules-5.15.0-1030-aws (5.15.0-1030.34) ...
+Selecting previously unselected package linux-image-5.15.0-1030-aws.
+Preparing to unpack .../4-linux-image-5.15.0-1030-aws_5.15.0-1030.34_amd64.deb ...
+Unpacking linux-image-5.15.0-1030-aws (5.15.0-1030.34) ...
+Preparing to unpack .../5-linux-aws_5.15.0.1030.28_amd64.deb ...
+Unpacking linux-aws (5.15.0.1030.28) over (5.15.0.1028.26) ...
+Preparing to unpack .../6-linux-image-aws_5.15.0.1030.28_amd64.deb ...
+Unpacking linux-image-aws (5.15.0.1030.28) over (5.15.0.1028.26) ...
+Selecting previously unselected package linux-aws-headers-5.15.0-1030.
+Preparing to unpack .../7-linux-aws-headers-5.15.0-1030_5.15.0-1030.34_all.deb ...
+Unpacking linux-aws-headers-5.15.0-1030 (5.15.0-1030.34) ...
+Selecting previously unselected package linux-headers-5.15.0-1030-aws.
+Preparing to unpack .../8-linux-headers-5.15.0-1030-aws_5.15.0-1030.34_amd64.deb ...
+Unpacking linux-headers-5.15.0-1030-aws (5.15.0-1030.34) ...
+Preparing to unpack .../9-linux-headers-aws_5.15.0.1030.28_amd64.deb ...
+Unpacking linux-headers-aws (5.15.0.1030.28) over (5.15.0.1028.26) ...
+Setting up less (590-1ubuntu0.22.04.1) ...
+Setting up linux-aws-headers-5.15.0-1030 (5.15.0-1030.34) ...
+Setting up git-man (1:2.34.1-1ubuntu1.8) ...
+Setting up linux-headers-5.15.0-1030-aws (5.15.0-1030.34) ...
+Setting up linux-headers-aws (5.15.0.1030.28) ...
+Setting up git (1:2.34.1-1ubuntu1.8) ...
+Setting up linux-image-5.15.0-1030-aws (5.15.0-1030.34) ...
+I: /boot/vmlinuz is now a symlink to vmlinuz-5.15.0-1030-aws
+I: /boot/initrd.img is now a symlink to initrd.img-5.15.0-1030-aws
+Setting up linux-image-aws (5.15.0.1030.28) ...
+Setting up linux-modules-5.15.0-1030-aws (5.15.0-1030.34) ...
+Setting up linux-aws (5.15.0.1030.28) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for linux-image-5.15.0-1030-aws (5.15.0-1030.34) ...
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-5.15.0-1030-aws
+/etc/kernel/postinst.d/zz-update-grub:
+Sourcing file `/etc/default/grub'
+Sourcing file `/etc/default/grub.d/40-force-partuuid.cfg'
+Sourcing file `/etc/default/grub.d/50-cloudimg-settings.cfg'
+Sourcing file `/etc/default/grub.d/init-select.cfg'
+Generating grub configuration file ...
+GRUB_FORCE_PARTUUID is set, will attempt initrdless boot
+Found linux image: /boot/vmlinuz-5.15.0-1030-aws
+Found initrd image: /boot/microcode.cpio /boot/initrd.img-5.15.0-1030-aws
+Found linux image: /boot/vmlinuz-5.15.0-1028-aws
+Found initrd image: /boot/microcode.cpio /boot/initrd.img-5.15.0-1028-aws
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+done
+Scanning processes...
+Scanning linux images...
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
+## Installing the NodeSource Node.js 18.x repo...
+
+
+## Populating apt-get cache...
+
++ apt-get update
+Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Reading package lists... Done
+
+## Confirming "jammy" is supported...
+
++ curl -sLf -o /dev/null 'https://deb.nodesource.com/node_18.x/dists/jammy/Release'
+
+## Adding the NodeSource signing key to your keyring...
+
++ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | tee /usr/share/keyrings/nodesource.gpg >/dev/null
+
+## Creating apt sources list file for the NodeSource Node.js 18.x repo...
+
++ echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x jammy main' > /etc/apt/sources.list.d/nodesource.list
++ echo 'deb-src [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x jammy main' >> /etc/apt/sources.list.d/nodesource.list
+
+## Running `apt-get update` for you...
+
++ apt-get update
+Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Get:5 https://deb.nodesource.com/node_18.x jammy InRelease [4563 B]
+Get:6 https://deb.nodesource.com/node_18.x jammy/main amd64 Packages [774 B]
+Fetched 5337 B in 1s (5310 B/s)
+Reading package lists... Done
+
+## Run `sudo apt-get install -y nodejs` to install Node.js 18.x and npm
+## You may also need development tools to build native addons:
+     sudo apt-get install gcc g++ make
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+     echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt-get update && sudo apt-get install yarn
+
+
+ubuntu@ip-172-31-51-131:~$ sudo apt-get install -y nodejs
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  nodejs
+0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+Need to get 28.5 MB of archives.
+After this operation, 186 MB of additional disk space will be used.
+Get:1 https://deb.nodesource.com/node_18.x jammy/main amd64 nodejs amd64 18.14.0-deb-1nodesource1 [28.5 MB]
+Fetched 28.5 MB in 0s (70.3 MB/s)
+Selecting previously unselected package nodejs.
+(Reading database ... 92360 files and directories currently installed.)
+Preparing to unpack .../nodejs_18.14.0-deb-1nodesource1_amd64.deb ...
+Unpacking nodejs (18.14.0-deb-1nodesource1) ...
+Setting up nodejs (18.14.0-deb-1nodesource1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Scanning processes...
+Scanning linux images...
+
+No services need to be restarted.
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+ubuntu@ip-172-31-51-131:~$ node -v
+v18.14.0
+ubuntu@ip-172-31-51-131:~$ npm -v
+9.3.1
+ubuntu@ip-172-31-51-131:~$ mkdir Todo
+ubuntu@ip-172-31-51-131:~$ ls
+Todo
+ubuntu@ip-172-31-51-131:~$ cd Todo
+ubuntu@ip-172-31-51-131:~/Todo$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (todo)
+version: (1.0.0)
+description: A todo app
+entry point: (index.js)
+test command:
+git repository:
+keywords: todo application
+author: Eze Onoky
+license: (ISC)
+About to write to /home/ubuntu/Todo/package.json:
+
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "A todo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "todo",
+    "application"
+  ],
+  "author": "Eze Onoky",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes) yes
+npm notice
+npm notice New minor version of npm available! 9.3.1 -> 9.5.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v9.5.0
+npm notice Run npm install -g npm@9.5.0 to update!
+npm notice
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+package.json
+ubuntu@ip-172-31-51-131:~/Todo$

@@ -293,3 +293,46 @@ npm notice
 ubuntu@ip-172-31-51-131:~/Todo$ ls
 package.json
 ubuntu@ip-172-31-51-131:~/Todo$
+
+## INSTALL EXPRESSJS
+
+Remember that Express is a framework for Node.js, therefore a lot of things developers would have programmed is already taken care of out of the box. Therefore it simplifies development, and abstracts a lot of low level details. For example, Express helps to define routes of your application based on HTTP methods and URLs.
+
+
+ubuntu@ip-172-31-51-131:~/Todo$ npm install express
+
+added 57 packages, and audited 58 packages in 2s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ touch index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ npm install dotenv
+
+added 1 package, and audited 59 packages in 463ms
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  node_modules  package-lock.json  package.json
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+Server running on port 5000
+ubuntu@ip-172-31-51-131:~/Todo$ mkdir routes
+ubuntu@ip-172-31-51-131:~/Todo$ cd routes
+ubuntu@ip-172-31-51-131:~/Todo/routes$ touch api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ vim api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ ubuntu@ip-172-31-51-131:~/Todo/routes$
+ubuntu@ip-172-31-51-131:~/Todo/routes$
+
+![PBL3_Picture2](https://user-images.githubusercontent.com/122687798/219301120-7c74adb6-144a-4567-a2c1-6a910670b2d7.JPG)
+

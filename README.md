@@ -564,3 +564,149 @@ router.get('/todos', (req, res, next) => {
 router.post('/todos', (req, res, next) => {
 
 });
+
+
+## MONGODB DATABASE
+
+## Challenges Encountered
+So there were alot of bugs on the script i ran earlier, attempts at server connection using node index.js command failed, util the bugs were removed. On Mongo DB, I was also unable to successfully connect from my windows terminal until i updated my current IP on the Mongo DB.
+
+STEPS FOLLOWED...
+We need a database where we will store our data. For this we will make use of mLab. mLab provides MongoDB database as a service solution (DBaaS), so to make life easy, you will need to sign up for a shared clusters free account, which is ideal for our use case.The signup process was followed.
+
+PS C:\Users\EZEPC\Desktop\DevOps> ssh -i "PBL3_1.pem" ubuntu@ec2-54-160-80-149.compute-1.amazonaws.com
+Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-1030-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Feb 17 02:12:27 UTC 2023
+
+  System load:  0.0               Processes:             97
+  Usage of /:   29.9% of 7.57GB   Users logged in:       1
+  Memory usage: 21%               IPv4 address for eth0: 172.31.51.131
+  Swap usage:   0%
+
+
+ * Introducing Expanded Security Maintenance for Applications.
+   Receive updates to over 25,000 software packages with your
+   Ubuntu Pro subscription. Free for personal use.
+
+     https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Fri Feb 17 00:20:37 2023 from 105.112.182.126
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$
+ubuntu@ip-172-31-51-131:~$ ls
+Todo
+ubuntu@ip-172-31-51-131:~$ cd Todo/
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  models  node_modules  package-lock.json  package.json  routes
+ubuntu@ip-172-31-51-131:~/Todo$ cat todo.js
+cat: todo.js: No such file or directory
+ubuntu@ip-172-31-51-131:~/Todo$ cd models/
+ubuntu@ip-172-31-51-131:~/Todo/models$ ls
+todo.js
+ubuntu@ip-172-31-51-131:~/Todo/models$ cat todo.js
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+//create schema for todo
+//const TodoSchema = new Schema({
+//action: {
+//type: String,
+//required: [true, 'The todo text field is required']
+//}
+//})
+//
+////create model for todo
+//const Todo = mongoose.model('todo', TodoSchema);
+//
+//module.exports = Todo;
+ubuntu@ip-172-31-51-131:~/Todo/models$ vim todo.js
+ubuntu@ip-172-31-51-131:~/Todo/models$ cd
+ubuntu@ip-172-31-51-131:~$ cd Todo/
+ubuntu@ip-172-31-51-131:~/Todo$ cd routes/
+ubuntu@ip-172-31-51-131:~/Todo/routes$ ls
+api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ vim api.js
+ubuntu@ip-172-31-51-131:~/Todo/routes$ cd..
+
+cd..: command not found
+ubuntu@ip-172-31-51-131:~/Todo/routes$
+ubuntu@ip-172-31-51-131:~/Todo/routes$ cd
+ubuntu@ip-172-31-51-131:~$ cd Todo/
+ubuntu@ip-172-31-51-131:~/Todo$ cat .env
+DB = 'mongodb+srv://onokyeze:onoky@105.112.182.126/cluster0.o1a750v.mongodb.net?retryWrites=true&w=majority'
+ubuntu@ip-172-31-51-131:~/Todo$ ls
+index.js  models  node_modules  package-lock.json  package.json  routes
+ubuntu@ip-172-31-51-131:~/Todo$ vim index.js
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+(node:1228) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 5000
+Error: querySrv ENOTFOUND _mongodb._tcp.105.112.182.126
+    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:251:17) {
+  errno: undefined,
+  code: 'ENOTFOUND',
+  syscall: 'querySrv',
+  hostname: '_mongodb._tcp.105.112.182.126'
+}
+^C
+ubuntu@ip-172-31-51-131:~/Todo$ cat .env
+DB = 'mongodb+srv://onokyeze:onoky@105.112.182.126/cluster0.o1a750v.mongodb.net?retryWrites=true&w=majority'
+ubuntu@ip-172-31-51-131:~/Todo$ vim .env
+ubuntu@ip-172-31-51-131:~/Todo$ vim .env
+ubuntu@ip-172-31-51-131:~/Todo$ ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+(node:1243) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 5000
+MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://docs.atlas.mongodb.com/security-whitelist/
+    at Connection.openUri (/home/ubuntu/Todo/node_modules/mongoose/lib/connection.js:825:32)
+    at /home/ubuntu/Todo/node_modules/mongoose/lib/index.js:411:10
+    at /home/ubuntu/Todo/node_modules/mongoose/lib/helpers/promiseOrCallback.js:41:5
+    at new Promise (<anonymous>)
+    at promiseOrCallback (/home/ubuntu/Todo/node_modules/mongoose/lib/helpers/promiseOrCallback.js:40:10)
+    at Mongoose._promiseOrCallback (/home/ubuntu/Todo/node_modules/mongoose/lib/index.js:1285:10)
+    at Mongoose.connect (/home/ubuntu/Todo/node_modules/mongoose/lib/index.js:410:20)
+    at Object.<anonymous> (/home/ubuntu/Todo/index.js:12:10)
+    at Module._compile (node:internal/modules/cjs/loader:1226:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1280:10) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-1ujm473-shard-00-01.o1a750v.mongodb.net:27017' => [ServerDescription],
+      'ac-1ujm473-shard-00-02.o1a750v.mongodb.net:27017' => [ServerDescription],
+      'ac-1ujm473-shard-00-00.o1a750v.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-1390n2-shard-0',
+    maxElectionId: null,
+    maxSetVersion: null,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined
+}
+^C
+ubuntu@ip-172-31-51-131:~/Todo$ node index.js
+(node:1257) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on port 5000
+Database connected successfully

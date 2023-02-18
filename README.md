@@ -712,6 +712,11 @@ Server running on port 5000
 Database connected successfully
 
   
+  ![PBL3_2](https://user-images.githubusercontent.com/122687798/219877009-0960814e-5535-4fe7-8bb9-6a305a28cd03.JPG)
+
+  ![PBL3_3](https://user-images.githubusercontent.com/122687798/219877266-674b035a-5ace-4743-a023-f7356b199ea9.JPG)
+
+  
 Now that i see ‘Database connected successfully’, it means we have our backend configured. Now we are going to test it.  
  
 ## Testing Backend Code without Frontend using RESTful API  

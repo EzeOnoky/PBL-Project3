@@ -733,5 +733,144 @@ CRUD operartions on Postman - CRUD means - Create, Rename, Update Delete any kin
 It is advised to test all the API endpoints and make sure they are working. For the endpoints that require body, you should send JSON back with the necessary fields since it’s what we setup in our code.
 
 Now open your Postman, create a POST request to the API http://<PublicIP-or-PublicDNS>:5000/api/todos. This request sends a new task to our To-Do list so the application could store it in the database.
+  
+## STEP 2 – FRONTEND CREATION
+  
+Since we are done with the functionality we want from our backend and API, it is time to create a user interface for a Web client (browser) to interact with the application via API. To start out with the frontend of the To-do app, we will use the create-react-app command to scaffold our app. In the same root directory as your backend code, which is the Todo directory, run:
+  
+ubuntu@ip-172-31-63-190:~/Todo$ cat package.json
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "A todo app",
+  "main": "index.js",
+  "scripts": {
+  "start": "node index.js",
+  "start-watch": "nodemon index.js",
+  "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+  },
+  "keywords": [
+    "todo",
+    "application"
+  ],
+  "author": "Eze Onoky",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+ubuntu@ip-172-31-63-190:~/Todo$ vi package.json
+ubuntu@ip-172-31-63-190:~/Todo$ vim package.json
+ubuntu@ip-172-31-63-190:~/Todo$ cat package.json
+
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "A todo app",
+  "main": "index.js",
+  "scripts": {
+  "start": "node index.js",
+  "start-watch": "nodemon index.js",
+  "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+  },
+  "keywords": [
+    "todo",
+    "application"
+  ],
+  "author": "Eze Onoky",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
+ubuntu@ip-172-31-63-190:~/Todo$ ls
+client  index.js  models  node_modules  package-lock.json  package.json  routes
+ubuntu@ip-172-31-63-190:~/Todo$ cd client/
+ubuntu@ip-172-31-63-190:~/Todo/client$ ls
+README.md  node_modules  package-lock.json  package.json  public  src
+ubuntu@ip-172-31-63-190:~/Todo/client$ vim package.json
+ubuntu@ip-172-31-63-190:~/Todo/client$ cat package.json
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "proxy": "http://localhost:5000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+ubuntu@ip-172-31-63-190:~/Todo/client$ cd ..
+ubuntu@ip-172-31-63-190:~/Todo$ npm run dev
+
+> todo@1.0.0 dev
+> concurrently "npm run start-watch" "cd client && npm start"
+
+[0]
+[0] > todo@1.0.0 start-watch
+[0] > nodemon index.js
+[0]
+[1]
+[1] > client@0.1.0 start
+[1] > react-scripts start
+[1]
+[0] sh: 1: nodemon: not found
+[0] npm run start-watch exited with code 127
+[1] (node:8300) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+[1] (Use `node --trace-deprecation ...` to show where the warning was created)
+[1] (node:8300) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+[1] Starting the development server...
+[1]
+[1] Compiled successfully!
+[1]
+[1] You can now view client in the browser.
+[1]
+[1]   Local:            http://localhost:3000
+[1]   On Your Network:  http://172.31.63.190:3000
+[1]
+[1] Note that the development build is not optimized.
+[1] To create a production build, use npm run build.
+[1]
+[1] webpack compiled successfully
+
 
   
+![PBL3_4](https://user-images.githubusercontent.com/122687798/219880051-0ca393b6-ae2b-45a3-acc0-7afd66e7a45c.JPG)

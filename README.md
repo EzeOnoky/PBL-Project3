@@ -973,7 +973,7 @@ cd src/components
 After that open your ListTodo.js
 vi ListTodo.js
 
->>>>>>>>>>>in the ListTodo.js copy and paste the following code
+                    in the ListTodo.js copy and paste the following code
 
 import React from 'react';
 
@@ -1002,7 +1002,7 @@ return (
 
 export default ListTodo
   
- >>>>>>Then in your Todo.js file you write the following code
+                      Then in your Todo.js file you write the following code
 
 import React, {Component} from 'react';
 import axios from 'axios';
@@ -1060,15 +1060,15 @@ let { todos } = this.state;
 
 export default Todo; 
 
->>>>>>>>>>We need to make little adjustment to our react code. Delete the logo and adjust our App.js to look like this.
+                    We need to make little adjustment to our react code. Delete the logo and adjust our App.js to look like this.
 
->>>>>>>>Move to the src folder
+                    Move to the src folder
 cd ..
 
-  >>>>>>>>>Make sure that you are in the src folder and run
+                    Make sure that you are in the src folder and run
 vi App.js
 
-  >>>>>>>Copy and paste the code below into it
+                    Copy and paste the code below into it
 
 import React from 'react';
 
@@ -1180,10 +1180,10 @@ margin-top: 0;
 }
 Exit
 
->>>>>>>>>>In the src directory open the index.css
+                                In the src directory open the index.css
 vim index.css
   
->>>>>>>>>>>Copy and paste the code below:
+                                 Copy and paste the code below:
 
 body {
 margin: 0;
@@ -1203,10 +1203,10 @@ font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 monospace;
 }
 
-  >>>>>>>>>>>>Go to the Todo directory
+                                      Go to the Todo directory
 cd ../..
 
-  >>>>>>>>>When you are in the Todo directory run:
+                                      When you are in the Todo directory run:
 npm run dev
   
 

@@ -1,5 +1,5 @@
 # PBL-Project3
-Darey.io DevOps Project Based Learning PBL3
+Implement Web solution based on MERN stack in AWS Cloud
 
 ## Challenges Encountered_Lessons learnt
 Each projects i attempt upskills my proficiency in the use of Linux commands, i spent longer hours on the projects because of my zero experience in navigating Linux command. Thankfully the Engineers at Darey.io would always guide, but then the personal researches i did for myself online helped alot. I always try not to immediately run to the Engineers at Darey.io, i have come to understand that personnally troubleshooting why i got a different outcome...far from the expected outcome based on the project steps guide, has helped grow my confidence.

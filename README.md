@@ -1,6 +1,12 @@
 # PBL-Project3
 Darey.io DevOps Project Based Learning PBL3
 
+## Challenges Encountered_Lessons learnt
+Each projects i attempt upskills my proficiency in the use of Linux commands, i spent longer hours on the projects because of my zero experience in navigating Linux command. Thankfully the Engineers at Darey.io would always guide, but then the personal researches i did for myself online helped alot. I always try not to immediately run to the Engineers at Darey.io, i have come to understand that personnally troubleshooting why i got a different outcome...far from the expected outcome based on the project steps guide, has helped grow my confidence.
+
+In this project i learnt how to edit a file using VIM command, i also learnt to always crosscheck your script, any missed letter will impact the expected outcome.
+
+
 In this project, i will implement a web solution based on MERN stack in AWS Cloud.
 MERN Web stack consists of following components:
 MongoDB: A document-based, No-SQL database used to store application data in a form of documents.

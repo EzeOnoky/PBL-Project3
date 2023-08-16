@@ -1,18 +1,17 @@
 # PBL-Project3
-Implement Web solution based on MERN stack in AWS Cloud
 
-## Challenges Encountered_Lessons learnt
-Each projects i attempt upskills my proficiency in the use of Linux commands, i spent longer hours on the projects because of my zero experience in navigating Linux command. Thankfully the Engineers at Darey.io would always guide, but then the personal researches i did for myself online helped alot. I always try not to immediately run to the Engineers at Darey.io, i have come to understand that personnally troubleshooting why i got a different outcome...far from the expected outcome based on the project steps guide, has helped grow my confidence.
-
-In this project i learnt how to edit a file using VIM command, i also learnt to always crosscheck your script, any missed letter will impact the expected outcome.
-
+# Implement Web solution based on MERN stack in AWS Cloud
 
 In this project, i will implement a web solution based on MERN stack in AWS Cloud.
+
 MERN Web stack consists of following components:
-MongoDB: A document-based, No-SQL database used to store application data in a form of documents.
-ExpressJS: A server side Web Application framework for Node.js.
-ReactJS: A frontend framework developed by Facebook. It is based on JavaScript, used to build User Interface (UI) components.
-Node.js: A JavaScript runtime environment. It is used to run JavaScript on a machine rather than in a browser.
+- **MongoDB** : A document-based, No-SQL database used to store application data in a form of documents.
+  
+- **ExpressJS** : A server side Web Application framework for Node.js.
+
+- **ReactJS** : A frontend framework developed by Facebook. It is based on JavaScript, used to build User Interface (UI) components
+
+- **Node.js** : A JavaScript runtime environment. It is used to run JavaScript on a machine rather than in a browser.
 
 ![PBL3_Picture1](https://user-images.githubusercontent.com/122687798/219295295-2f4b71f3-bb5b-4651-aea2-313b81faa2c3.JPG)
 
@@ -21,155 +20,216 @@ As shown on the illustration above, a user interacts with the ReactJS UI compone
 Any interaction that causes a data change request is sent to the NodeJS based Express server, which grabs data from the MongoDB database if required, and returns the data to the frontend of the application, which is then presented to the user.
 
 
-## STEP 1 – BACKEND CONFIGURATION
+# STEP 1 – BACKEND CONFIGURATION
 
-ubuntu@ip-172-31-51-131:~$
-ubuntu@ip-172-31-51-131:~$
-ubuntu@ip-172-31-51-131:~$
-ubuntu@ip-172-31-51-131:~$ sudo apt update
-Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports InRelease [107 kB]
-Get:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
-Get:5 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
-Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
-Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
-Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
-Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
-Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
-Get:11 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [896 kB]
-Get:12 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [196 kB]
-Get:13 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [13.5 kB]
-Get:14 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [624 kB]
-Get:15 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [96.1 kB]
-Get:16 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [580 B]
-Get:17 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [811 kB]
-Get:18 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [147 kB]
-Get:19 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [15.5 kB]
-Get:20 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [9696 B]
-Get:21 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [3260 B]
-Get:22 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [456 B]
-Get:23 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [40.7 kB]
-Get:24 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [9800 B]
-Get:25 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [392 B]
-Get:26 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
-Get:27 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [19.5 kB]
-Get:28 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [13.8 kB]
-Get:29 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [392 B]
-Get:30 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
-Get:31 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [637 kB]
-Get:32 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [133 kB]
-Get:33 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [8388 B]
-Get:34 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [575 kB]
-Get:35 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [87.9 kB]
-Get:36 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [640 kB]
-Get:37 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [88.1 kB]
-Get:38 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [11.3 kB]
-Get:39 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [4960 B]
-Get:40 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [996 B]
-Get:41 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [240 B]
-Fetched 25.8 MB in 4s (5747 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-7 packages can be upgraded. Run 'apt list --upgradable' to see them.
-ubuntu@ip-172-31-51-131:~$
-ubuntu@ip-172-31-51-131:~$ sudo apt upgrade
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-Calculating upgrade... Done
-The following NEW packages will be installed:
-  linux-aws-headers-5.15.0-1030 linux-headers-5.15.0-1030-aws linux-image-5.15.0-1030-aws
-  linux-modules-5.15.0-1030-aws
-The following packages have been kept back:
-  ubuntu-advantage-tools
-The following packages will be upgraded:
-  git git-man less linux-aws linux-headers-aws linux-image-aws
-6 upgraded, 4 newly installed, 0 to remove and 1 not upgraded.
-6 standard LTS security updates
-Need to get 53.4 MB of archives.
-After this operation, 231 MB of additional disk space will be used.
-Do you want to continue? [Y/n] Y
-Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 less amd64 590-1ubuntu0.22.04.1 [143 kB]
-Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 git-man all 1:2.34.1-1ubuntu1.8 [953 kB]
-Get:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 git amd64 1:2.34.1-1ubuntu1.8 [3141 kB]Get:4 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-modules-5.15.0-1030-aws amd64 5.15.0-1030.34 [22.5 MB]
-Get:5 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-image-5.15.0-1030-aws amd64 5.15.0-1030.34 [11.4 MB]
-Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-aws amd64 5.15.0.1030.28 [1716 B]Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-image-aws amd64 5.15.0.1030.28 [2458 B]
-Get:8 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-aws-headers-5.15.0-1030 all 5.15.0-1030.34 [12.4 MB]
-Get:9 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-headers-5.15.0-1030-aws amd64 5.15.0-1030.34 [2822 kB]
-Get:10 http://us-east-1.ec2.archive.ubuntu.com/ubuntu jammy-updates/main amd64 linux-headers-aws amd64 5.15.0.1030.28 [2390 B]
-Fetched 53.4 MB in 2s (33.9 MB/s)
-(Reading database ... 63605 files and directories currently installed.)
-Preparing to unpack .../0-less_590-1ubuntu0.22.04.1_amd64.deb ...
-Unpacking less (590-1ubuntu0.22.04.1) over (590-1build1) ...
-Preparing to unpack .../1-git-man_1%3a2.34.1-1ubuntu1.8_all.deb ...
-Unpacking git-man (1:2.34.1-1ubuntu1.8) over (1:2.34.1-1ubuntu1.6) ...
-Preparing to unpack .../2-git_1%3a2.34.1-1ubuntu1.8_amd64.deb ...
-Unpacking git (1:2.34.1-1ubuntu1.8) over (1:2.34.1-1ubuntu1.6) ...
-Selecting previously unselected package linux-modules-5.15.0-1030-aws.
-Preparing to unpack .../3-linux-modules-5.15.0-1030-aws_5.15.0-1030.34_amd64.deb ...
-Unpacking linux-modules-5.15.0-1030-aws (5.15.0-1030.34) ...
-Selecting previously unselected package linux-image-5.15.0-1030-aws.
-Preparing to unpack .../4-linux-image-5.15.0-1030-aws_5.15.0-1030.34_amd64.deb ...
-Unpacking linux-image-5.15.0-1030-aws (5.15.0-1030.34) ...
-Preparing to unpack .../5-linux-aws_5.15.0.1030.28_amd64.deb ...
-Unpacking linux-aws (5.15.0.1030.28) over (5.15.0.1028.26) ...
-Preparing to unpack .../6-linux-image-aws_5.15.0.1030.28_amd64.deb ...
-Unpacking linux-image-aws (5.15.0.1030.28) over (5.15.0.1028.26) ...
-Selecting previously unselected package linux-aws-headers-5.15.0-1030.
-Preparing to unpack .../7-linux-aws-headers-5.15.0-1030_5.15.0-1030.34_all.deb ...
-Unpacking linux-aws-headers-5.15.0-1030 (5.15.0-1030.34) ...
-Selecting previously unselected package linux-headers-5.15.0-1030-aws.
-Preparing to unpack .../8-linux-headers-5.15.0-1030-aws_5.15.0-1030.34_amd64.deb ...
-Unpacking linux-headers-5.15.0-1030-aws (5.15.0-1030.34) ...
-Preparing to unpack .../9-linux-headers-aws_5.15.0.1030.28_amd64.deb ...
-Unpacking linux-headers-aws (5.15.0.1030.28) over (5.15.0.1028.26) ...
-Setting up less (590-1ubuntu0.22.04.1) ...
-Setting up linux-aws-headers-5.15.0-1030 (5.15.0-1030.34) ...
-Setting up git-man (1:2.34.1-1ubuntu1.8) ...
-Setting up linux-headers-5.15.0-1030-aws (5.15.0-1030.34) ...
-Setting up linux-headers-aws (5.15.0.1030.28) ...
-Setting up git (1:2.34.1-1ubuntu1.8) ...
-Setting up linux-image-5.15.0-1030-aws (5.15.0-1030.34) ...
-I: /boot/vmlinuz is now a symlink to vmlinuz-5.15.0-1030-aws
-I: /boot/initrd.img is now a symlink to initrd.img-5.15.0-1030-aws
-Setting up linux-image-aws (5.15.0.1030.28) ...
-Setting up linux-modules-5.15.0-1030-aws (5.15.0-1030.34) ...
-Setting up linux-aws (5.15.0.1030.28) ...
-Processing triggers for man-db (2.10.2-1) ...
-Processing triggers for linux-image-5.15.0-1030-aws (5.15.0-1030.34) ...
-/etc/kernel/postinst.d/initramfs-tools:
-update-initramfs: Generating /boot/initrd.img-5.15.0-1030-aws
-/etc/kernel/postinst.d/zz-update-grub:
-Sourcing file `/etc/default/grub'
-Sourcing file `/etc/default/grub.d/40-force-partuuid.cfg'
-Sourcing file `/etc/default/grub.d/50-cloudimg-settings.cfg'
-Sourcing file `/etc/default/grub.d/init-select.cfg'
-Generating grub configuration file ...
-GRUB_FORCE_PARTUUID is set, will attempt initrdless boot
-Found linux image: /boot/vmlinuz-5.15.0-1030-aws
-Found initrd image: /boot/microcode.cpio /boot/initrd.img-5.15.0-1030-aws
-Found linux image: /boot/vmlinuz-5.15.0-1028-aws
-Found initrd image: /boot/microcode.cpio /boot/initrd.img-5.15.0-1028-aws
-Warning: os-prober will not be executed to detect other bootable partitions.
-Systems on them will not be added to the GRUB boot configuration.
-Check GRUB_DISABLE_OS_PROBER documentation entry.
-done
-Scanning processes...
-Scanning linux images...
+## 1A  - INSTALL NODE.JS & NPM, CREATE PACKAGE.JSON
 
-No services need to be restarted.
+Firstly, We run the commands below: To update Ubuntu, upgrade Ubuntu
 
-No containers need to be restarted.
+```
+sudo apt update
+sudo apt upgrade
+```
 
-No user sessions are running outdated binaries.
+Next, we get the location of the **Node.js** software from the ubuntu repository by running this command:
 
-No VM guests are running outdated hypervisor (qemu) binaries on this host.
-ubuntu@ip-172-31-51-131:~$
-ubuntu@ip-172-31-51-131:~$ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+`curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -`
 
-## Installing the NodeSource Node.js 18.x repo...
+After doing the above, we can now install the **Node.js** and **npm** by running below command:
+
+
+`sudo apt-get install -y nodejs`
+
+The command above installs both *nodejs* and *npm*
+NPM is a package manager for Node like apt for Ubuntu, it is used to install Node modules & packages and to manage dependency conflicts.
+
+To check the version the node and check the version of the npm, we execute below...
+
+```
+node -v
+npm -v
+```
+
+Next we create a directory for our To-Do Project, run the ***ls*** command to verify that the directory was created, and the CD into the ToDo directory
+
+```
+mkdir Todo
+ls
+cd Todo
+```
+
+Next, we initialize the project so that a new file **package.json** will be created. This file contains information of the application and the dependencies it nedds to run.
+
+We initialize the project by running the command, We also run the ls command to verify that **package.json** was created.
+
+**NOTE** The command npm init is used to initialise your project, so that a new file named package.json will be created. This file will normally contain information about your application and the dependencies that it needs to run. Follow the prompts after running the command. You can press Enter several times to accept default values, then accept to write out the package.json file by typing yes.
+
+```
+npm init
+ls
+```
+![3_1](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/a4156e75-44be-4377-b553-1fed5e397b7b)
+
+
+
+Next we install ExpresJs and create the Routes directory.
+
+## 1B   - INSTALL EXPRESSJS
+
+Express is a framework for **Node.js**, therefore a lot of things developers would have programmed is already taken care of out of the box. Therefore it simplifies development, and abstracts a lot of low level details. For example, Express helps to define routes of your application based on HTTP methods and URLs.
+
+Express is a framework for **NodeJs**, Express helps to define routes of your application based on HTTP methods and URLs.
+
+To use Express, we install it using npm:
+
+`npm install express`
+
+![3_2](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/4a5fbd1e-157e-468f-beb4-49d3260e7b38)
+
+
+Now create a file **index.js**, and then run ***ls*** to confirm that the **index.js** file is successfully created. Next, install the dotenv module by running the command:
+
+```
+touch index.js
+ls
+npm install dotenv
+```
+
+Open the **index.js** file by running the command, We copy the folowing into it and "save" using ":wq"
+
+`vim index.js`
+
+```
+const express = require('express');
+require('dotenv').config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+app.use((req, res, next) => {
+res.header("Access-Control-Allow-Origin", "\*");
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+next();
+});
+
+app.use((req, res, next) => {
+res.send('Welcome to Express');
+});
+
+app.listen(port, () => {
+console.log(`Server running on port ${port}`)
+});
+```
+
+We start our server to see if it works. Before we start the server, we need to be sure we are in the Todo directory.
+
+`node index.js`
+
+If there are no erros, we should see ***Server running on port 5000*** in your terminal.
+
+We need to go to our instance security group and edit inbound rules and add rules
+
+We open our browser and put in the URL
+
+http://<PublicIP>:5000
+
+We should see ***welcome to Express***
+
+![3_5](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/f5f0a0ff-313d-45cb-b56c-c6aa55d4d837)
+
+Our To-Do application should be able to do the following:
+
+- create a new task.
+- dislay the lists of tasks.
+- Delete a completed task
+  
+We need to create routes that will define various endpoints that the To-do application will depend on.
+
+To create a folder routes, we run the command, Change into the routes directory, create a file **api.js**:
+
+```
+mkdir routes
+cd routes
+touch api.js
+```
+
+Open the file
+
+`vim api.js`
+
+We then copy and paste the code below into the **api.js** file
+
+```
+const express = require ('express');
+const router = express.Router();
+
+router.get('/todos', (req, res, next) => {
+
+});
+
+router.post('/todos', (req, res, next) => {
+
+});
+
+router.delete('/todos/:id', (req, res, next) => {
+
+})
+
+module.exports = router;
+```
+
+"save" and "quit" using ":wq"
+
+
+## 1C  CREATING MODELS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## STEP 2   Installing the NodeSource Node.js 18.x repo...
 
 
 ## Populating apt-get cache...
@@ -1220,6 +1280,13 @@ Assuming no errors when saving all these files, our To-Do app should be ready an
 
   
   ![PBL3_9](https://user-images.githubusercontent.com/122687798/219917419-60075565-d344-47df-af86-961c7d39425b.JPG)
+
+
+
+## Challenges Encountered_Lessons learnt
+Each projects i attempt upskills my proficiency in the use of Linux commands, i spent longer hours on the projects because of my zero experience in navigating Linux command. Thankfully the Engineers at Darey.io would always guide, but then the personal researches i did for myself online helped alot. I always try not to immediately run to the Engineers at Darey.io, i have come to understand that personnally troubleshooting why i got a different outcome...far from the expected outcome based on the project steps guide, has helped grow my confidence.
+
+In this project i learnt how to edit a file using VIM command, i also learnt to always crosscheck your script, any missed letter will impact the expected outcome.
 
   
 ## Congratulations EZE

@@ -184,9 +184,120 @@ module.exports = router;
 
 ## 1C  CREATING MODELS
 
+We then go ahead to create **Models** since the application will be using **MongoDB** which is a NoSQL database. A Model makes the javascript application interactive. We also use Models to define the database schema . This is important so that we will be able to define the fields stored in each Mongodb document.
+
+The **Schema** shows how the database will be setup, including other data fields that may not be required to be stored in the database.
+
+To create a Schema and a model, we will need to install **mongoose** which is a **Node.js** package that makes working with mongodb easier.
+
+To install Mongoose, we make sure we are in the Todo directory then run the command:
+
+`npm install mongoose`
+
+![3_6](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/0d54e489-f094-406a-b273-6655d7cca42e)
+
+We go ahead to create a folder **models** , then change into the model directory, Inside the models folder, create a file named **todo.js**
+
+```
+mkdir models
+cd models
+touch todo.js
+```
+
+![3_7](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/c8978b16-52c7-4e61-b2d3-34456beef397)
+
+We then open the file and paste the following codes:
+
+```
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+//create schema for todo
+const TodoSchema = new Schema({
+action: {
+type: String,
+required: [true, 'The todo text field is required']
+}
+})
+
+//create model for todo
+const Todo = mongoose.model('todo', TodoSchema);
+
+module.exports = Todo;
+```
+
+![3_8](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/7988a3a6-6030-42b2-b670-3ed56343af00)
+
+We then go to our routes directory and update the **api.js** file to be able to make use of the new model. Also Open the **api.js** file using the vim command
+
+```
+cd routes
+vim api.js
+```
+
+Copy and paste the following codes into the file
+
+```
+const express = require ('express');
+const router = express.Router();
+const Todo = require('../models/todo');
+
+router.get('/todos', (req, res, next) => {
+
+//this will return all the data, exposing only the id and action field to the client
+Todo.find({}, 'action')
+.then(data => res.json(data))
+.catch(next)
+});
+
+router.post('/todos', (req, res, next) => {
+if(req.body.action){
+Todo.create(req.body)
+.then(data => res.json(data))
+.catch(next)
+}else {
+res.json({
+error: "The input field is empty"
+})
+}
+});
+
+router.delete('/todos/:id', (req, res, next) => {
+Todo.findOneAndDelete({"_id": req.params.id})
+.then(data => res.json(data))
+.catch(next)
+})
+
+module.exports = router;
+```
+
+![3_9](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/6a6b4dfd-0faa-481d-86d5-9bb63fa92eea)
+
+Next we setup the MongoDB Database.
+
+## 1D    SETTING UP THE MONGODB DATABASE
+
+We use **MongoDB Database** to store our data using **mLab** which provides Database as a service (DBaas) solution.
+
+To continue, we sign up [here](https://www.mongodb.com/atlas-signup-from-mlab).
+
+Follow the sign up process, select AWS as the cloud provider, and choose a region near you.
 
 
+![3_10](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/addf6b40-8e5b-496c-a62f-0ea6d6c96d08)
 
+Go to **Network access**, select **Allow access from anywhere**. This is not secure but good for testing purposes.
+
+![3_11](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/d0b0d7e4-bba2-45f0-900f-91bc3511e1b4)
+
+Then change the time of deleting the entry from 6 Hours to 1 Week.
+
+
+![3_12](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/a3fcac09-b602-4aae-b909-d4022f1306c8)
+
+Create a MongoDB database and collection inside mLab by clicking on "database", click on "cluster0" and then open "collections".
+
+![3_13](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/4b970ca3-d71d-476a-a92c-a62a18e112f6)
 
 
 

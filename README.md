@@ -295,10 +295,277 @@ Then change the time of deleting the entry from 6 Hours to 1 Week.
 
 ![3_12](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/a3fcac09-b602-4aae-b909-d4022f1306c8)
 
-Create a MongoDB database and collection inside mLab by clicking on "database", click on "cluster0" and then open "collections".
+Create a **MongoDB** database and collection inside mLab by clicking on **"database"**, click on **cluster0** and then open **collections**.
 
 ![3_13](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/4b970ca3-d71d-476a-a92c-a62a18e112f6)
 
+In the **index.js** file, we specified **process.env** to access environment variables, but we are yet to create this file.
+
+To create the **process.env** file, we create a file in Todo directory and name it **.env** , Open the file
+
+```
+touch .env
+vim .env
+```
+
+Add the connection string to access the database in it, just as below:
+
+`DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority'`
+
+Make sure to update **"<username, <password, <network-address"** and **<database** according to your setup.
+
+To get the connection string, we click on **"cluster0"** then click on **"connect"**
+
+![3_14](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/f3d7550b-9cc4-4c5f-9386-54b999bd2b55)
+
+Then we click on **"Mongodb drivers-connect your application..."**
+
+
+![3_15](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/dbeb9014-24a7-4dc4-93e6-bd53b7238c70)
+
+We then copy then connection string displayed into the **.env** file.
+
+![3_16](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/0e374f54-df20-4e8b-9f29-c35fc69b72ed)
+
+![3_17](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/af669d7d-12b9-45c8-be85-b74c2407b488)
+
+We need to update the **index.js** to reflect the use of **.env** so that **Node.js** can connect to the database.
+
+To do that we open the **index.js** file and delete the content using "esc" then ":%d" then "enter".
+
+We then replace then content with the following codes:
+
+```
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const routes = require('./routes/api');
+const path = require('path');
+require('dotenv').config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+//connect to the database
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log(`Database connected successfully`))
+.catch(err => console.log(err));
+
+//since mongoose promise is depreciated, we overide it with node's promise
+mongoose.Promise = global.Promise;
+
+app.use((req, res, next) => {
+res.header("Access-Control-Allow-Origin", "\*");
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+next();
+});
+
+app.use(bodyParser.json());
+
+app.use('/api', routes);
+
+app.use((err, req, res, next) => {
+console.log(err);
+next();
+});
+
+app.listen(port, () => {
+console.log(`Server running on port ${port}`)
+});
+```
+
+![3_18](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/7dc47bc7-cbd1-48d1-a708-46ae1c569ef1)
+
+It is more secure to use environment variables to store information so as to separate configuration and secret data from the application, instead of writing connection strings directly inside the **index.js** application file.
+
+We start our server by running the command:
+
+`node index.js`
+
+If the setup has no errors, we should see **"Database connected successfully"**
+
+![3_19](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/a5d2f579-97c1-4b08-a586-a0ffb3eeec66)
+
+We now have our backend configured, but we need to test it.
+
+To test the backend without the frontend we are going to be using **Restful API** with the help of an API development client **Postman**
+
+To download and install Postman, click [here](https://www.postman.com/downloads/) .
+
+Click [here](https://www.youtube.com/watch?v=FjgYtQK_zLE) to learn how to perform [CRUD Operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) on Postman.
+
+We test all the API endpoints and make sure they are working. For the endpoints that require body, you should send **JSON** back with the necessary fields since it’s what we setup in our code.
+
+Now open your Postman, create a POST request to the API
+
+`http://<PublicIP>:5000/api/todos`
+
+This request sends a new task to our To-Do list so the application could store it in the database.
+
+Make sure to set the header **"content-type"** and **"application/json"** :
+
+![3_20](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/603bd328-f870-4e66-9fbc-f823f523521f)
+
+Then click on **body.** In the field below we key in a command that displays as a response on then next field with an **id.**
+
+![3_21](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/774ffd6f-729d-41f7-9c38-4bbdf29e1966)
+
+Create a **GET** request to your API on
+
+`http://<PublicIP>:5000/api/todos`
+
+This request retrieves all existing records from out To-do application. The backend requests these records from the database and sends it us back as a response to **GET** request.
+
+![3_22](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/a192b777-bf44-44b3-a2f4-4d68cdc33457)
+
+To delete a task – you need to send its ID as a part of **DELETE** request.
+
+By now you have tested backend part of our To-Do application and have made sure that it supports all three operations we wanted:
+
+- Display a list of tasks – HTTP GET request
+- Add a new task to the list – HTTP POST request
+- Delete an existing task from the list – HTTP DELETE request
+
+**We have successfully created our Backend, now let go create the Frontend.**
+
+# STEP 2 – SETTING UP THE FRONTEND
+
+We will create a user interface for a Web client (browser) to interact with the application via API.
+
+To do this, we will start by running the command in the **Todo** directory:
+
+`npx create-react-app client`
+
+This will create a new folder in your Todo directory called client, where you will add all the react code.
+
+![3_23](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/6d5bf069-aa00-43d3-b42d-c1e25a9cdf6d)
+
+
+## 2A    RUNNING A REACT APPLICATION
+
+There are some dependencies that need to be installed before running the **React App**
+
+We Install "concurrently" by running the command:
+
+`npm install concurrently --save-dev`
+
+It is used to run more than one command simultaneously from the same terminal window.
+
+![3_24](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/32f631a4-3c54-4534-a0a8-a7a1ed8994e7)
+
+Next, we install **"nodemon"**. This is used to run and monitor the server. If there is any change in the server code, nodemon will restart it automatically and load the new changes.
+
+`npm install nodemon --save-dev`
+
+![3_25](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/ea271ca6-8fbd-4a7d-9e29-666069828b34)
+
+Goto the Todo directory, open the **package.json** file.
+
+`vim package.json`
+
+In this file, replace the **"scripts"** section with the following code:
+
+```
+"scripts": {
+"start": "node index.js",
+"start-watch": "nodemon index.js",
+"dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+},
+```
+
+![3_26](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/f1e1e57a-5bb5-4dfa-9770-3578f8120838)
+
+Change into the client directory, Open **package.json** file, Add the key value pair in the package.json file
+
+```
+cd client
+vim apckage.json
+"proxy": "http://localhost:5000"
+```
+
+![3_27](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/009f5bb0-60fb-4127-94fc-ba169e0dfd00)
+
+The aim of adding the proxy to the file is to make it possible to access the application directly from the browser by simply calling the server url like **http://localhost:5000** rather than always including the entire path like **http://localhost:5000/api/todos**
+
+We go back to the Todo directory, Then run the command:
+
+```
+cd ..
+npm run dev
+```
+
+The app should open and start running on **localhost:3000**
+
+In order to be able to access the application from the Internet you have to open **TCP port 3000** on EC2 by adding a new Security Group rule. The same way the security group for TCP port 5000 was created. This is done by clicking edit inbound rules.
+
+
+## 2B  CREATING YOUR REACT COMPONENTS
+
+One of the advantages of react is that it makes use of components, which are reusable and also makes code modular. Our **Todo** app will have two stateful components and one stateless component.
+
+Go to Todo directory, Change into the src directory, Inside your src folder create another folder called **components**, Move into the components directory, Inside components directory create three files **Input.js, ListTodo.js** and **Todo.js** ....Open Input.js file
+
+```
+cd client
+cd src
+mkdir components
+cd components
+touch Input.js ListTodo.js Todo.js
+vim Input.js
+```
+
+Copy and paste the following:
+
+```
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class Input extends Component {
+
+state = {
+action: ""
+}
+
+addTodo = () => {
+const task = {action: this.state.action}
+
+    if(task.action && task.action.length > 0){
+      axios.post('/api/todos', task)
+        .then(res => {
+          if(res.data){
+            this.props.getTodos();
+            this.setState({action: ""})
+          }
+        })
+        .catch(err => console.log(err))
+    }else {
+      console.log('input field required')
+    }
+
+}
+
+handleChange = (e) => {
+this.setState({
+action: e.target.value
+})
+}
+
+render() {
+let { action } = this.state;
+return (
+<div>
+<input type="text" onChange={this.handleChange} value={action} />
+<button onClick={this.addTodo}>add todo</button>
+</div>
+)
+}
+}
+
+export default Input
+```
+
+![3_28](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/92f7f314-ea37-4379-8fc2-afb31e0b68ed)
 
 
 

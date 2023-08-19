@@ -567,12 +567,284 @@ export default Input
 
 ![3_28](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/92f7f314-ea37-4379-8fc2-afb31e0b68ed)
 
+To make use of **Axios**, which is a Promise based HTTP client for the browser and **node.js**
+
+We go into the client directory and run the command:
+
+```
+cd ../..
+npm install axios
+```
+
+We go to **components** directory:
+
+`cd src/components`
+
+After that we open the **ListTodo.js**
+
+`vim ListTodo.js`
+
+In the **ListTodo.js** copy and paste the following codes:
+
+import React from 'react';
+
+const ListTodo = ({ todos, deleteTodo }) => {
+
+```
+return (
+<ul>
+{
+todos &&
+todos.length > 0 ?
+(
+todos.map(todo => {
+return (
+<li key={todo._id} onClick={() => deleteTodo(todo._id)}>{todo.action}</li>
+)
+})
+)
+:
+(
+<li>No todo(s) left</li>
+)
+}
+</ul>
+)
+}
+
+export default ListTodo
+```
+
+![3_29](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/0cb028ee-8a4a-496a-b7e9-6c1e3e4c1624)
+
+Open the **Todo.js** file we copy and paste the following code:
+
+```
+import React, {Component} from 'react';
+import axios from 'axios';
+
+import Input from './Input';
+import ListTodo from './ListTodo';
+
+class Todo extends Component {
+
+state = {
+todos: []
+}
+
+componentDidMount(){
+this.getTodos();
+}
+
+getTodos = () => {
+axios.get('/api/todos')
+.then(res => {
+if(res.data){
+this.setState({
+todos: res.data
+})
+}
+})
+.catch(err => console.log(err))
+}
+
+deleteTodo = (id) => {
+
+    axios.delete(`/api/todos/${id}`)
+      .then(res => {
+        if(res.data){
+          this.getTodos()
+        }
+      })
+      .catch(err => console.log(err))
+
+}
+
+render() {
+let { todos } = this.state;
+
+    return(
+      <div>
+        <h1>My Todo(s)</h1>
+        <Input getTodos={this.getTodos}/>
+        <ListTodo todos={todos} deleteTodo={this.deleteTodo}/>
+      </div>
+    )
+
+}
+}
+
+export default Todo;
+```
+
+We then move into the src directory, and Open **App.js** file.
+
+```
+cd ..
+vim App.js
+```
+
+Copy and paste the following codes into the file
+
+```
+import React from 'react';
+
+import Todo from './components/Todo';
+import './App.css';
+
+const App = () => {
+return (
+<div className="App">
+<Todo />
+</div>
+);
+}
+
+export default App;
+```
+
+![3_30](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/8dd557f1-b3f2-4f76-863f-b7833a98ead5)
+
+We Exit, Next we open the **App.css** file in the src directory and paste the following codes:
+
+```
+.App {
+text-align: center;
+font-size: calc(10px + 2vmin);
+width: 60%;
+margin-left: auto;
+margin-right: auto;
+}
+
+input {
+height: 40px;
+width: 50%;
+border: none;
+border-bottom: 2px #101113 solid;
+background: none;
+font-size: 1.5rem;
+color: #787a80;
+}
+
+input:focus {
+outline: none;
+}
+
+button {
+width: 25%;
+height: 45px;
+border: none;
+margin-left: 10px;
+font-size: 25px;
+background: #101113;
+border-radius: 5px;
+color: #787a80;
+cursor: pointer;
+}
+
+button:focus {
+outline: none;
+}
+
+ul {
+list-style: none;
+text-align: left;
+padding: 15px;
+background: #171a1f;
+border-radius: 5px;
+}
+
+li {
+padding: 15px;
+font-size: 1.5rem;
+margin-bottom: 15px;
+background: #282c34;
+border-radius: 5px;
+overflow-wrap: break-word;
+cursor: pointer;
+}
+
+@media only screen and (min-width: 300px) {
+.App {
+width: 80%;
+}
+
+input {
+width: 100%
+}
+
+button {
+width: 100%;
+margin-top: 15px;
+margin-left: 0;
+}
+}
+
+@media only screen and (min-width: 640px) {
+.App {
+width: 60%;
+}
+
+input {
+width: 50%;
+}
+
+button {
+width: 30%;
+margin-left: 10px;
+margin-top: 0;
+}
+}
+```
+
+![3_31](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/58560193-b3bb-4b03-8aae-309fa284b7d2)
+
+We Exit, still in the same src directory, we open the **index.css** file, and then copy and paste the following codes:
+
+`vim index.css`
+
+```
+body {
+margin: 0;
+padding: 0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+box-sizing: border-box;
+background-color: #282c34;
+color: #787a80;
+}
+
+code {
+font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+monospace;
+}
+```
+
+We go to the **Todo** directory, In the Todo directory, we then run the command - npm cmd
+
+```
+cd ../..
+npm run dev
+```
+
+If there are no errors, there should be a message **webfiles compiled successfully**
 
 
+![3_32](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/a4b97ee8-3d0c-46f9-a3d5-727ddbb009c6)
 
+To view this on the browser, we past the URL:
 
+http://<PublicIP>:3000
 
+![3_33](https://github.com/EzeOnoky/Project-Base-Learning-3/assets/122687798/10cd7421-0678-46d0-a0ef-a8e71320be8e)
 
+Our **To-do** application is ready and functional with the functionality discussed earlier: creating a task, deleting a task and viewing all your tasks.
+
+# Congratulations Eze !
+In this Project 3 you have created a simple To-Do and deployed it to **MERN** stack. You wrote a frontend application using **React.js** that communicates with a backend application written using **Expressjs**. You also created a **Mongodb** backend for storing tasks in a database.
 
 
 
